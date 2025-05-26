@@ -19,7 +19,8 @@ import { spawnSync } from "child_process";
 import fs from "fs";
 import { render } from "ink";
 import meow from "meow";
-import path from "path";
+import { homedir } from "os";
+import path, { join } from "path";
 import React from "react";
 import App from "./app";
 import { runSinglePass } from "./cli-singlepass";
@@ -64,6 +65,7 @@ const cli = meow(
     -v, --view <rollout>            Inspect a previously saved rollout instead of starting a session
     -q, --quiet                     Non-interactive mode that only prints the assistant's final output
     -c, --config                    Open the instructions file in your editor
+    -r, --role <role>               Select role for instruction file (doc-writer, fullstack-developer, backend-developer, frontend-developer, security-analisys, product-manager, support-n1, support-n3, tech-lead, technical-analist)
     -w, --writable-root <path>      Writable folder for sandbox in full-auto mode (can be specified multiple times)
     -a, --approval-mode <mode>      Override the approval policy: 'suggest', 'auto-edit', or 'full-auto'
 
@@ -153,6 +155,12 @@ const cli = meow(
       projectDoc: {
         type: "string",
         description: "Path to a markdown file to include as project doc",
+      },
+      role: {
+        type: "string",
+        aliases: ["r"],
+        description:
+          "Select role for instruction file (doc-writer, fullstack-developer, backend-developer, frontend-developer, security-analisys, product-manager, support-n1, support-n3, tech-lead, technical-analist)",
       },
       flexMode: {
         type: "boolean",
@@ -251,12 +259,32 @@ if (cli.flags.config) {
   process.exit(0);
 }
 
+// Valid roles for instruction files
+const validRoles = [
+  "doc-writer",
+  "fullstack-developer",
+  "backend-developer",
+  "frontend-developer",
+  "security-analisys",
+  "product-manager",
+  "support-n1",
+  "support-n3",
+  "tech-lead",
+  "technical-analist",
+];
+// Selected role from command-line arguments
+const role = cli.flags.role as string | undefined;
+export const CONFIG_DIR = join(homedir(), ".codex");
+const instructionsPath =
+  role && validRoles.includes(role)
+    ? path.join(CONFIG_DIR, `instructions-${role}.md`)
+    : undefined;
 // ---------------------------------------------------------------------------
 // API key handling
 // ---------------------------------------------------------------------------
 
 const fullContextMode = Boolean(cli.flags.fullContext);
-let config = loadConfig(undefined, undefined, {
+let config = loadConfig(undefined, instructionsPath, {
   cwd: process.cwd(),
   disableProjectDoc: Boolean(cli.flags.noProjectDoc),
   projectDocPath: cli.flags.projectDoc,

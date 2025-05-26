@@ -1,16 +1,18 @@
+/* eslint-disable import/order */
+
+import type { ResponseItem } from "openai/resources/responses/responses";
 import type { ApprovalPolicy } from "./approvals";
 import type { AppConfig } from "./utils/config";
 import type { TerminalChatSession } from "./utils/session.js";
-import type { ResponseItem } from "openai/resources/responses/responses";
 
+import { ConfirmInput } from "@inkjs/ui";
+import { Box, Text, useApp, useStdin } from "ink";
+import React, { useMemo, useState } from "react";
 import TerminalChat from "./components/chat/terminal-chat";
 import TerminalChatPastRollout from "./components/chat/terminal-chat-past-rollout";
 import { checkInGit } from "./utils/check-in-git";
 import { onExit } from "./utils/terminal";
 import { CLI_VERSION } from "./version";
-import { ConfirmInput } from "@inkjs/ui";
-import { Box, Text, useApp, useStdin } from "ink";
-import React, { useMemo, useState } from "react";
 
 export type AppRollout = {
   session: TerminalChatSession;
@@ -60,7 +62,7 @@ export default function App({
       <Box flexDirection="column">
         <Box borderStyle="round" paddingX={1} width={64}>
           <Text>
-            ● OpenAI <Text bold>Codex</Text>{" "}
+            ● PULLSE <Text bold>CLI</Text>{" "}
             <Text dimColor>
               (research preview) <Text color="blueBright">v{CLI_VERSION}</Text>
             </Text>

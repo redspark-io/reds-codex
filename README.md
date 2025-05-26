@@ -222,7 +222,24 @@ The hardening mechanism Codex uses depends on your OS:
 | `pullse -q "..."`                     | Non-interactive "quiet mode"        | `pullse -q --json "explain utils.ts"` |
 | `pullse completion <bash\|zsh\|fish>` | Print shell completion script       | `pullse completion bash`              |
 
-Key flags: `--model/-m`, `--approval-mode/-a`, `--quiet/-q`, and `--notify`.
+Key flags: `--model/-m`, `--approval-mode/-a`, `--quiet/-q`, `--role/-r`, and `--notify`.
+
+---
+
+## Roles
+
+O parâmetro `--role` (`-r`) permite selecionar diferentes papéis (roles) que determinam qual arquivo de instruções será carregado. Os papéis suportados são:
+
+- **doc-writer**: Escreve a documentação do código através de um repositório ou vários
+- **fullstack-developer**: desenvolve em sistemas monorepos, com backend e frontend juntos
+- **backend-developer**: desenvolve em sistemas de backend
+- **frontend-developer**: desenvolve em sistema de frontend
+- **security-analisys**: realiza analise de segurança de alguns pontos do projeto
+- **product-manager**: ajuda a descrever um produto
+- **support-n1**: Analisa os cards de bugs de um produto, checando se o mesmo esta nos padrões corretos
+- **support-n3**: Resolve bugs através de cards que estão com a descrição correta
+- **tech-lead**: Quebra tarefas complexas em pequenos passos técnicos para execução em um projeto
+- **technical-analist**: Analisa os regras de negócio e aponta elementos de falha ou relacionamentos entre histórias, escrevendo o resultado
 
 ---
 

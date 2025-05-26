@@ -1,10 +1,12 @@
-import type { TerminalChatSession } from "../../utils/session.js";
+/* eslint-disable import/order */
+
 import type { ResponseItem } from "openai/resources/responses/responses";
 import type { FileOpenerScheme } from "src/utils/config.js";
+import type { TerminalChatSession } from "../../utils/session.js";
 
-import TerminalChatResponseItem from "./terminal-chat-response-item";
 import { Box, Text } from "ink";
 import React from "react";
+import TerminalChatResponseItem from "./terminal-chat-response-item";
 
 export default function TerminalChatPastRollout({
   session,
@@ -20,7 +22,7 @@ export default function TerminalChatPastRollout({
     <Box flexDirection="column">
       <Box borderStyle="round" paddingX={1} width={64}>
         <Text>
-          ● OpenAI <Text bold>Codex</Text>{" "}
+          ● PULLSE <Text bold>CLI</Text>{" "}
           <Text dimColor>
             (research preview) <Text color="blueBright">v{version}</Text>
           </Text>
