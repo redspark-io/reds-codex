@@ -59,7 +59,7 @@ fi
 
 cd "run_$new_run_number"
 
-# Launch Codex
+# Launch Pullse
 echo "Launching..."
 description=$(yq -o=json '.' ../../task.yaml | jq -r '.description')
-codex "$description"
+pullse "$description"

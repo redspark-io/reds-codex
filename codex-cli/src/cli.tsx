@@ -1,17 +1,26 @@
 #!/usr/bin/env node
 import "dotenv/config";
 
+/* eslint-disable import/order */
+
 // Hack to suppress deprecation warnings (punycode)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (process as any).noDeprecation = true;
 
+import type { ReasoningEffort } from "openai/resources.mjs";
+import type { ResponseItem } from "openai/resources/responses/responses";
 import type { AppRollout } from "./app";
 import type { ApprovalPolicy } from "./approvals";
 import type { CommandConfirmation } from "./utils/agent/agent-loop";
 import type { AppConfig } from "./utils/config";
-import type { ResponseItem } from "openai/resources/responses/responses";
-import type { ReasoningEffort } from "openai/resources.mjs";
 
+import chalk from "chalk";
+import { spawnSync } from "child_process";
+import fs from "fs";
+import { render } from "ink";
+import meow from "meow";
+import path from "path";
+import React from "react";
 import App from "./app";
 import { runSinglePass } from "./cli-singlepass";
 import { AgentLoop } from "./utils/agent/agent-loop";
@@ -20,22 +29,15 @@ import { AutoApprovalMode } from "./utils/auto-approval-mode";
 import { checkForUpdates } from "./utils/check-updates";
 import {
   getApiKey,
+  INSTRUCTIONS_FILEPATH,
   loadConfig,
   PRETTY_PRINT,
-  INSTRUCTIONS_FILEPATH,
 } from "./utils/config";
 import { createInputItem } from "./utils/input-utils";
 import { initLogger } from "./utils/logger/log";
 import { isModelSupportedForResponses } from "./utils/model-utils.js";
 import { parseToolCall } from "./utils/parsers";
 import { onExit, setInkRenderer } from "./utils/terminal";
-import chalk from "chalk";
-import { spawnSync } from "child_process";
-import fs from "fs";
-import { render } from "ink";
-import meow from "meow";
-import path from "path";
-import React from "react";
 
 // Call this early so `tail -F "$TMPDIR/oai-codex/codex-cli-latest.log"` works
 // immediately. This must be run with DEBUG=1 for logging to work.
@@ -49,8 +51,8 @@ initLogger();
 const cli = meow(
   `
   Usage
-    $ codex [options] <prompt>
-    $ codex completion <bash|zsh|fish>
+    $ pullse [options] <prompt>
+    $ pullse completion <bash|zsh|fish>
 
   Options
     --version                       Print version and exit
@@ -92,9 +94,9 @@ const cli = meow(
                                with all other flags, except for --model.
 
   Examples
-    $ codex "Write and run a python program that prints ASCII art"
-    $ codex -q "fix build issues"
-    $ codex completion bash
+    $ pullse "Write and run a python program that prints ASCII art"
+    $ pullse -q "fix build issues"
+    $ pullse completion bash
 `,
   {
     importMeta: import.meta,

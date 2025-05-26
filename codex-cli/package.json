@@ -3,7 +3,7 @@
   "version": "0.1.2504301751",
   "license": "Apache-2.0",
   "bin": {
-    "codex": "bin/codex.js"
+    "pullse": "bin/pullse.js"
   },
   "type": "module",
   "engines": {

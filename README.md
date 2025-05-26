@@ -1,9 +1,9 @@
-<h1 align="center">OpenAI Codex CLI</h1>
+<h1 align="center">Pullse CLI</h1>
 <p align="center">Lightweight coding agent that runs in your terminal</p>
 
 <p align="center"><code>npm i -g @openai/codex</code></p>
 
-![Codex demo GIF using: codex "explain this codebase to me"](./.github/demo.gif)
+![Pullse demo GIF using: pullse "explain this codebase to me"](./.github/demo.gif)
 
 ---
 
@@ -126,17 +126,17 @@ export OPENAI_API_KEY="your-api-key-here"
 Run interactively:
 
 ```shell
-codex
+pullse
 ```
 
 Or, run with a prompt as input (and optionally in `Full Auto` mode):
 
 ```shell
-codex "explain this codebase to me"
+pullse "explain this codebase to me"
 ```
 
 ```shell
-codex --approval-mode full-auto "create the fanciest todo-list app"
+pullse --approval-mode full-auto "create the fanciest todo-list app"
 ```
 
 That's it - Codex will scaffold a file, run it inside a sandbox, install any
@@ -215,12 +215,12 @@ The hardening mechanism Codex uses depends on your OS:
 
 ## CLI reference
 
-| Command                              | Purpose                             | Example                              |
-| ------------------------------------ | ----------------------------------- | ------------------------------------ |
-| `codex`                              | Interactive REPL                    | `codex`                              |
-| `codex "..."`                        | Initial prompt for interactive REPL | `codex "fix lint errors"`            |
-| `codex -q "..."`                     | Non-interactive "quiet mode"        | `codex -q --json "explain utils.ts"` |
-| `codex completion <bash\|zsh\|fish>` | Print shell completion script       | `codex completion bash`              |
+| Command                               | Purpose                             | Example                               |
+| ------------------------------------- | ----------------------------------- | ------------------------------------- |
+| `pullse`                              | Interactive REPL                    | `pullse`                              |
+| `pullse "..."`                        | Initial prompt for interactive REPL | `pullse "fix lint errors"`            |
+| `pullse -q "..."`                     | Non-interactive "quiet mode"        | `pullse -q --json "explain utils.ts"` |
+| `pullse completion <bash\|zsh\|fish>` | Print shell completion script       | `pullse completion bash`              |
 
 Key flags: `--model/-m`, `--approval-mode/-a`, `--quiet/-q`, and `--notify`.
 
@@ -247,7 +247,7 @@ Run Codex head-less in pipelines. Example GitHub Action step:
   run: |
     npm install -g @openai/codex
     export OPENAI_API_KEY="${{ secrets.OPENAI_KEY }}"
-    codex -a auto-edit --quiet "update CHANGELOG for next release"
+    pullse -a auto-edit --quiet "update CHANGELOG for next release"
 ```
 
 Set `CODEX_QUIET_MODE=1` to silence interactive UI noise.
@@ -257,7 +257,7 @@ Set `CODEX_QUIET_MODE=1` to silence interactive UI noise.
 Setting the environment variable `DEBUG=true` prints full API request and response details:
 
 ```shell
-DEBUG=true codex
+DEBUG=true pullse
 ```
 
 ---
@@ -266,15 +266,15 @@ DEBUG=true codex
 
 Below are a few bite-size examples you can copy-paste. Replace the text in quotes with your own task. See the [prompting guide](https://github.com/openai/codex/blob/main/codex-cli/examples/prompting_guide.md) for more tips and usage patterns.
 
-| ✨  | What you type                                                                   | What happens                                                               |
-| --- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| 1   | `codex "Refactor the Dashboard component to React Hooks"`                       | Codex rewrites the class component, runs `npm test`, and shows the diff.   |
-| 2   | `codex "Generate SQL migrations for adding a users table"`                      | Infers your ORM, creates migration files, and runs them in a sandboxed DB. |
-| 3   | `codex "Write unit tests for utils/date.ts"`                                    | Generates tests, executes them, and iterates until they pass.              |
-| 4   | `codex "Bulk-rename *.jpeg -> *.jpg with git mv"`                               | Safely renames files and updates imports/usages.                           |
-| 5   | `codex "Explain what this regex does: ^(?=.*[A-Z]).{8,}$"`                      | Outputs a step-by-step human explanation.                                  |
-| 6   | `codex "Carefully review this repo, and propose 3 high impact well-scoped PRs"` | Suggests impactful PRs in the current codebase.                            |
-| 7   | `codex "Look for vulnerabilities and create a security review report"`          | Finds and explains security bugs.                                          |
+| ✨  | What you type                                                                    | What happens                                                               |
+| --- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 1   | `pullse "Refactor the Dashboard component to React Hooks"`                       | Codex rewrites the class component, runs `npm test`, and shows the diff.   |
+| 2   | `pullse "Generate SQL migrations for adding a users table"`                      | Infers your ORM, creates migration files, and runs them in a sandboxed DB. |
+| 3   | `pullse "Write unit tests for utils/date.ts"`                                    | Generates tests, executes them, and iterates until they pass.              |
+| 4   | `pullse "Bulk-rename *.jpeg -> *.jpg with git mv"`                               | Safely renames files and updates imports/usages.                           |
+| 5   | `pullse "Explain what this regex does: ^(?=.*[A-Z]).{8,}$"`                      | Outputs a step-by-step human explanation.                                  |
+| 6   | `pullse "Carefully review this repo, and propose 3 high impact well-scoped PRs"` | Suggests impactful PRs in the current codebase.                            |
+| 7   | `pullse "Look for vulnerabilities and create a security review report"`          | Finds and explains security bugs.                                          |
 
 ---
 
