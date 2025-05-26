@@ -27,6 +27,8 @@ type Props = {
   approvalPolicy: ApprovalPolicy;
   additionalWritableRoots: ReadonlyArray<string>;
   fullStdout: boolean;
+  /** Instruction file role for this session */
+  role?: string;
 };
 
 export default function App({
@@ -37,6 +39,7 @@ export default function App({
   approvalPolicy,
   additionalWritableRoots,
   fullStdout,
+  role,
 }: Props): JSX.Element {
   const app = useApp();
   const [accepted, setAccepted] = useState(() => false);
@@ -53,6 +56,7 @@ export default function App({
         session={rollout.session}
         items={rollout.items}
         fileOpener={config.fileOpener}
+        role={role}
       />
     );
   }
@@ -105,6 +109,7 @@ export default function App({
       approvalPolicy={approvalPolicy}
       additionalWritableRoots={additionalWritableRoots}
       fullStdout={fullStdout}
+      role={role}
     />
   );
 }

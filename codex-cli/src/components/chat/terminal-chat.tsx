@@ -53,6 +53,8 @@ type Props = {
   approvalPolicy: ApprovalPolicy;
   additionalWritableRoots: ReadonlyArray<string>;
   fullStdout: boolean;
+  /** Instruction file role for guiding the agent */
+  role?: string;
 };
 
 const colorsByPolicy: Record<ApprovalPolicy, ColorName | undefined> = {
@@ -138,6 +140,7 @@ export default function TerminalChat({
   approvalPolicy: initialApprovalPolicy,
   additionalWritableRoots,
   fullStdout,
+  role,
 }: Props): React.ReactElement {
   const notify = Boolean(config.notify);
   const [model, setModel] = useState<string>(config.model);
@@ -479,6 +482,7 @@ export default function TerminalChat({
               agent,
               initialImagePaths,
               flexModeEnabled: Boolean(config.flexMode),
+              role,
             }}
             fileOpener={config.fileOpener}
           />

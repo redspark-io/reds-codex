@@ -476,6 +476,7 @@ const instance = render(
     approvalPolicy={approvalPolicy}
     additionalWritableRoots={additionalWritableRoots}
     fullStdout={Boolean(cli.flags.fullStdout)}
+    role={role}
   />,
   {
     patchConsole: process.env["DEBUG"] ? false : true,

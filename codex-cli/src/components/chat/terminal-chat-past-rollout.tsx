@@ -12,10 +12,12 @@ export default function TerminalChatPastRollout({
   session,
   items,
   fileOpener,
+  role,
 }: {
   session: TerminalChatSession;
   items: Array<ResponseItem>;
   fileOpener: FileOpenerScheme | undefined;
+  role?: string;
 }): React.ReactElement {
   const { version, id: sessionId, model } = session;
   return (
@@ -51,6 +53,11 @@ export default function TerminalChatPastRollout({
         <Text dimColor>
           <Text color="blueBright">↳</Text> model: <Text bold>{model}</Text>
         </Text>
+        {role && (
+          <Text dimColor>
+            <Text color="blueBright">↳</Text> role: <Text bold>{role}</Text>
+          </Text>
+        )}
       </Box>
       <Box flexDirection="column" gap={1}>
         {React.useMemo(

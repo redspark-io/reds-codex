@@ -15,6 +15,8 @@ export interface TerminalHeaderProps {
   agent?: AgentLoop;
   initialImagePaths?: Array<string>;
   flexModeEnabled?: boolean;
+  /** Instruction file role for guiding the agent */
+  role?: string;
 }
 
 const TerminalHeader: React.FC<TerminalHeaderProps> = ({
@@ -28,6 +30,7 @@ const TerminalHeader: React.FC<TerminalHeaderProps> = ({
   agent,
   initialImagePaths,
   flexModeEnabled = false,
+  role,
 }) => {
   return (
     <>
@@ -36,6 +39,12 @@ const TerminalHeader: React.FC<TerminalHeaderProps> = ({
         <Text>
           ● Codex v{version} - {PWD} - {model} ({provider}) -{" "}
           <Text color={colorsByPolicy[approvalPolicy]}>{approvalPolicy}</Text>
+          {role ? (
+            <>
+              {" "}
+              - role: <Text bold>{role}</Text>
+            </>
+          ) : null}
           {flexModeEnabled ? " - flex-mode" : ""}
         </Text>
       ) : (
@@ -77,6 +86,11 @@ const TerminalHeader: React.FC<TerminalHeaderProps> = ({
                 {approvalPolicy}
               </Text>
             </Text>
+            {role && (
+              <Text dimColor>
+                <Text color="blueBright">↳</Text> role: <Text bold>{role}</Text>
+              </Text>
+            )}
             {flexModeEnabled && (
               <Text dimColor>
                 <Text color="blueBright">↳</Text> flex-mode:{" "}
