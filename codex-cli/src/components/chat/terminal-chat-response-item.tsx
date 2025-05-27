@@ -1,4 +1,5 @@
-import type { OverlayModeType } from "./terminal-chat";
+/* eslint-disable import/order */
+
 import type { TerminalRendererOptions } from "marked-terminal";
 import type {
   ResponseFunctionToolCallItem,
@@ -9,10 +10,8 @@ import type {
   ResponseReasoningItem,
 } from "openai/resources/responses/responses";
 import type { FileOpenerScheme } from "src/utils/config";
+import type { OverlayModeType } from "./terminal-chat";
 
-import { useTerminalSize } from "../../hooks/use-terminal-size";
-import { collapseXmlBlocks } from "../../utils/file-tag-utils";
-import { parseToolCall, parseToolCallOutput } from "../../utils/parsers";
 import chalk, { type ForegroundColorName } from "chalk";
 import { Box, Text } from "ink";
 import { parse, setOptions } from "marked";
@@ -20,6 +19,9 @@ import TerminalRenderer from "marked-terminal";
 import path from "path";
 import React, { useEffect, useMemo } from "react";
 import supportsHyperlinks from "supports-hyperlinks";
+import { useTerminalSize } from "../../hooks/use-terminal-size";
+import { collapseXmlBlocks } from "../../utils/file-tag-utils";
+import { parseToolCall, parseToolCallOutput } from "../../utils/parsers";
 
 export default function TerminalChatResponseItem({
   item,
@@ -139,7 +141,7 @@ function TerminalChatResponseMessage({
   return (
     <Box flexDirection="column">
       <Text bold color={colorsByRole[message.role] || "gray"}>
-        {message.role === "assistant" ? "codex" : message.role}
+        {message.role === "assistant" ? "pullse" : message.role}
       </Text>
       <Markdown fileOpener={fileOpener}>
         {message.content
