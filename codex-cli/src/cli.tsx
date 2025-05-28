@@ -271,6 +271,7 @@ const validRoles = [
   "support-n3",
   "tech-lead",
   "technical-analist",
+  "devops-engineer",
 ];
 // Selected role from command-line arguments
 const role = cli.flags.role as string | undefined;
